@@ -1,0 +1,263 @@
+/* Common Styles */
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner&family=Kalam:wght@300;400;700&display=swap');
+
+/* .chat-container {
+    display: flex; 
+    flex-direction: column;
+    font-family: 'Fredoka One', cursive;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+} */
+.chat-container {
+    background: transparent;
+    position: relative; /* Allows absolute positioning of background text */
+    display: flex;
+    flex-direction: column;
+    font-family: 'Fredoka One', cursive;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    z-index: 1;
+  }
+  
+  /* Background text styles */
+  .chat-container::before {
+    content: "BLUECHAT";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem; /* Adjust size as needed */
+    color: rgba(0, 0, 0, 0.1); /* Light color for background text */
+    white-space: nowrap;
+    z-index: 0; /* Ensure the text is behind chat messages */
+    pointer-events: none; /* Ensure the text doesn't interfere with clicks */
+  }
+  
+  
+  /* Adjustments for light mode */
+  .App-light-mode .chat-container::before {
+    color: rgba(0, 0, 0, 0.1); /* Light color for light mode */
+  }
+  
+  /* Adjustments for dark mode */
+  .App-dark-mode .chat-container::before {
+    color: rgba(255, 255, 255, 0.1); /* Light color for dark mode */
+  }
+  
+.spacer {
+    flex-grow: 1;
+}
+
+.input-cont {
+    border: 2px solid #1a73e8;
+    width: 100%;
+}
+
+/*------------------------------ Light Mode ------------------------------ */
+.App-light-mode {
+    background-color: #f0f4f8;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+}
+
+.navbar-light-mode {
+    background-color: #e9e9e9;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.title-light-mode {
+    color: #1a73e8;
+    margin-left: 2vw;
+    font-size: 5vh;
+    display: flex;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.usr_msg-light-mode,
+.ai_msg-light-mode {
+    background-color: #1a73e8;
+    color: #e7e7e7;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 3px;
+    font-family: 'Kalam', sans-serif;
+    font-weight: normal;
+    box-shadow: 3px 2px 4px #666666;
+    max-width: 95%;
+    word-wrap:normal;
+}
+
+.usr_msg-light-mode {
+    align-self: flex-end;
+}
+
+.ai_msg-light-mode {
+    align-self: flex-start;
+}
+
+.chat-input-container-light-mode {
+    display: flex;
+    align-items: center;
+    background-color: #ebebeb;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: inset 0px 1px 20px 0px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.chat-input-light-mode {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    color: #000000;
+    font-size: 16px;
+    outline: none;
+    padding-left: 10px;
+}
+
+.chat-input-light-mode::placeholder {
+    color: #555;
+}
+
+.file-upload-button-light-mode {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.file-upload-button-light-mode:hover {
+    color: #1a73e8;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+}
+.send-button-light-mode {
+    background-color: transparent;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.send-button-light-mode:hover {
+    color: #1a73e8;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+}
+
+/*------------------------------ Dark Mode ------------------------------ */
+.App-dark-mode {
+    background-color: #1d1d1d;
+    color: #ffffff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+}
+
+.navbar-dark-mode {
+    background-color: #232323;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.title-dark-mode {
+    color: #4a90e2;
+    margin-left: 2vw;
+    font-size: 5vh;
+    display: flex;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.usr_msg-dark-mode,
+.ai_msg-dark-mode {
+    background-color: #1a1a1a;
+    color: #fcfcfc;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 3px;
+    font-family: 'Kalam', sans-serif;
+    font-weight: normal;
+    box-shadow: 2px 2px 4px #525151;
+    max-width: 95%;
+    word-wrap:normal;
+}
+
+.usr_msg-dark-mode {
+    align-self: flex-end;
+}
+
+.ai_msg-dark-mode {
+    align-self: flex-start;
+}
+
+.chat-input-container-dark-mode {
+    display: flex;
+    align-items: center;
+    background-color: #141414;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: inset 0px 1px 20px 0px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.chat-input-dark-mode {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    color: #ccc;
+    font-size: 16px;
+    outline: none;
+    padding-left: 10px;
+}
+
+.chat-input-dark-mode::placeholder {
+    color: #949494;
+}
+
+.file-upload-button-dark-mode {
+    background-color: transparent;
+    color: #fcfcfc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.file-upload-button-dark-mode:hover {
+    color: #6e6e6e;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+}
+.send-button-dark-mode {
+    background-color: transparent;
+    color: #fcfcfc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+.send-button-dark-mode:hover {
+    color: #6e6e6e;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+}
