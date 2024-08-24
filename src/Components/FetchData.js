@@ -1,22 +1,25 @@
-export const fetchData = (prompt, respond) => {
+export const fetchData = async (prompt, respond) => {
     const data = {
         message: prompt.usr_input
     };
 
-        return  fetch('http://127.0.0.1:59000/submit', {
+    try {
+        const response = await fetch('http://127.0.0.1:59000/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();  // Assuming the response is JSON
-        })
-        .then(json => {
-            respond(json.message);  // Assuming the server response contains a 'message' field
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        respond(json.message);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        respond(`Error: ${error.message}`);  // Provide more detailed error feedback
+    }
 };
