@@ -4,7 +4,7 @@ export const fetchData = async (prompt, respond) => {
     };
 
     try {
-        const response = await fetch('http://127.0.0.1:59000/submit', {
+        const response = await fetch('http://localhost:59000', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,3 +23,4 @@ export const fetchData = async (prompt, respond) => {
         respond(`Error: ${error.message}`);  // Provide more detailed error feedback
     }
 };
+

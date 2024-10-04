@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepgram Text-to-Speech</title>
+</head>
+
+<body>
+    <h1>Text-to-Speech with Deepgram</h1>
+    <textarea id="text" rows="4" cols="50">Deepgram is great for real-time conversations…</textarea><br>
+    <button id="speakButton">Convert to Speech</button>
+    <audio id="audioPlayer" controls></audio>
+
+    <script>
+        document.getElementById('speakButton').onclick = async function() {
+            const text = document.getElementById('text').value;
+            const apiKey = 'f83cbb5e02512d6c745766ae8cc2fb7743642847'; // Replace with your Deepgram API key
+
+            try {
+                const response = await fetch('https://api.deepgram.com/v1/speak?model=aura-asteria-en', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Token ${apiKey}`,
+                        'Content-Type': 'text/plain'
+                    },
+                    body: text
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+
+                const audioBlob = await response.blob();
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = audioUrl;
+                audioPlayer.play();
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+    </script>
+</body>
+
+</html>
