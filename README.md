@@ -1,7 +1,3 @@
-Here's the updated README for BlueChat with expanded details and improvements:
-
----
-
 # BlueChat AI
 
 **BlueChat AI** is an advanced conversational web application powered by Google's **Generative AI (Gemini 1.5 Flash)** model. The platform supports real-time AI conversations and offers a clean, user-friendly chat interface with additional features like light/dark modes, user authentication, and chat history management.
@@ -128,7 +124,3 @@ I welcome contributions to improve BlueChat! To contribute:
 3. Make your changes and commit (`git commit -am 'Add new feature'`).
 4. Push to your branch (`git push origin feature-branch`).
 5. Create a Pull Request.
-
----
-
-This updated README includes additional details like user authentication, API endpoints, and a more structured flow for installation and usage. Let me know if any further details are needed! 😊
