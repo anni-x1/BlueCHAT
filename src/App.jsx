@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from './Components/Context/AppContext';
 import NavBar from './Components/Navbar';
 import Main from './Components/Main';
-import './Components/MainStyle.css'
+import './Components/Styles/MainStyle.css'
 function App() {
-  const [mode, setmode] = useState('light-mode');
-  const toggle = () => {
-    setmode(mode==='light-mode'?'dark-mode':'light-mode')
-  }
+  const { mode } = useContext(AppContext);
   return (
     <div className={`App-${mode}`}>
-      <NavBar mode={mode} toggle={toggle}/>
-      <Main mode={mode}/>
+      <NavBar />
+      <Main />
     </div>
   );
 }

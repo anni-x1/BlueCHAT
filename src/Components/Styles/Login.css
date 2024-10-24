@@ -1,0 +1,109 @@
+.input-group {
+    margin-bottom: 1.5rem;
+}
+input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    
+}
+input:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+h6:hover{
+  transform:scale(1.02) ;
+}
+/* ---------------------------------------------------------Light mode---------------------------------------------------------- */
+.heading-light-mode {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.login-container-light-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: linear-gradient(135deg, #7594ff, #004fa0);
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+.login-card-light-mode {
+  background-color: #ffffff83;
+  color: #333;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px #0000001a, 0 1px 3px #00000014;
+  width: 100%;
+  max-width: 400px;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.login-card-light-mode:hover {
+  transform: translateY(-5px);
+}
+.login-btn-light-mode {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.login-btn-light-mode:hover {
+  background-color: #3182ce;
+}
+/* ------------------------------DARKMODE---------------------------------------- */
+.heading-dark-mode {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.login-container-dark-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: linear-gradient(135deg, #161616, #222222);
+    transition: background 0.3s ease;
+}
+.login-card-dark-mode {
+  background-color: #0e0e0ecc;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px #0000001a, 0 1px 3px #00000014;
+  width: 100%;
+  max-width: 400px;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.login-card-dark-mode:hover {
+  transform: translateY(-5px);
+}
+.login-btn-dark-mode {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.login-btn-dark-mode:hover {
+  background-color: #3182ce;
+}
+

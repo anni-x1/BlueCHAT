@@ -1,49 +1,68 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { AppContext } from "./Context/AppContext";
+import Login from "./Authentication/Login";
+import Signup from "./Authentication/Signup";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { fetchData } from "./FetchData";
 
-export default function Main({ mode }) {
+export default function Main() {
+  const { username, mode, authenticated, registered, messages, setMessages } = useContext(AppContext);
   const [prompt, setPrompt] = useState({ usr_input: "" });
-  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const chatContainerRef = useRef();
 
-  // Example messages for the tabs
   const exampleMessages = [
+    "How do I get started with React?",
     "Write a python code to print Hello World!",
-    "Tell me a fun fact about space.",
     "What is the meaning of life?"
   ];
 
-  // Handle prompt change
   const handlePromptChange = (event) => {
     setPrompt({ usr_input: event.target.value });
   };
 
-  // Handle tab click - sets the selected example message into the input box
   const handleTabClick = (message) => {
     setPrompt({ usr_input: message });
   };
-
-  // Handle send message
+  const handleReset = async () => {
+    setMessages([]);
+    try {
+      await fetch('http://localhost:56000/api/user/resetHistory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
+    } catch (error) {
+      console.error("Error resetting history:", error);
+    }
+  };
+  
   const handleClick = () => {
     if (prompt.usr_input !== "") {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { type: "user", usr_msg: prompt.usr_input },
+        {
+          "type": "user",
+          "content": prompt.usr_input
+        },
       ]);
 
       setLoading(true);
       setPrompt({ usr_input: "" });
-      fetchData(prompt, (response) => {
+      fetchData(username, prompt, (response) => {
         try {
           if (response) {
             setMessages((prevMessages) => [
               ...prevMessages,
-              { type: "ai", ai_msg: response },
+              {
+                "type": "ai",
+                "content": response
+              },
             ]);
           }
         } catch (error) {
@@ -57,11 +76,15 @@ export default function Main({ mode }) {
   };
 
   useEffect(() => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   const handleFocus = () => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   };
 
   const components = {
@@ -84,6 +107,13 @@ export default function Main({ mode }) {
     },
   };
 
+  if (!authenticated) {
+    if (registered)
+      return <Login />;
+    else
+      return <Signup />
+  }
+
   return (
     <>
       <div ref={chatContainerRef} className="chat-container" >
@@ -101,22 +131,16 @@ export default function Main({ mode }) {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`${msg.type === "user" ? `usr_msg-${mode}` : `ai_msg-${mode}`
-              }`}
+            className={`${msg.type === "user" ? `usr_msg-${mode}` : `ai_msg-${mode}`}`}
           >
             <ReactMarkdown components={components}>
-              {msg.type === "user" ? msg.usr_msg : msg.ai_msg}
+              {msg.type === "user" ? msg.content : msg.content}
             </ReactMarkdown>
-            {msg.type === "user" && (
-              <div className={`pen-edit-${mode} material-symbols-outlined`}>
-                edit
-              </div>
-            )}
           </div>
         ))}
 
         {loading && (
-          <div>
+          <div style={{ color: "black" }} >
             <span>typing...</span>
             <div className="spinner-grow spinner-grow-sm" role="status">
               <span className="visually-hidden">Loading...</span>
@@ -130,15 +154,12 @@ export default function Main({ mode }) {
         )}
       </div>
       <div className={`chat-input-container-${mode}`}>
-        <button type="file" className={`file-upload-button-${mode}`}>
-          <span className="material-symbols-outlined">attach_file</span>
-        </button>
         <input
           onFocus={handleFocus}
           onChange={handlePromptChange}
           type="text"
           value={prompt.usr_input}
-          placeholder="Ask me anything"
+          placeholder="Ask me anything..."
           className={`chat-input-${mode}`}
           onKeyDown={(e) =>
             e.key === "Enter" && prompt.usr_input.trim() !== "" && handleClick()
@@ -162,6 +183,15 @@ export default function Main({ mode }) {
             <span className="material-symbols-outlined">send</span>
           </button>
         )}
+        <button
+          data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Reset chat history"
+          onClick={handleReset}
+          className={`send-button-${mode}`}
+          >
+          <span  class="material-symbols-outlined">
+            restart_alt
+          </span>
+        </button>
       </div>
     </>
   );

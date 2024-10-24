@@ -1,10 +1,12 @@
-export const fetchData = async (prompt, respond) => {
+export const fetchData = async (username, prompt, respond) => {
     const data = {
+        username: username,
         message: prompt.usr_input
     };
+    console.log(prompt.usr_input)
 
     try {
-        const response = await fetch('http://localhost:59000', {
+        const response = await fetch('http://localhost:56000/api/chat/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,7 +22,6 @@ export const fetchData = async (prompt, respond) => {
         respond(json.message);
     } catch (error) {
         console.error('Error fetching data:', error);
-        respond(`Error: ${error.message}`);  // Provide more detailed error feedback
+        respond(`Error: ${error.message}`);
     }
 };
-
