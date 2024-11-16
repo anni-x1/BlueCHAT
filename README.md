@@ -43,7 +43,7 @@ PORT=your_preferred_port
 
 #### 4. Run the Server:
 ```bash
-node server.js
+npm start
 ```
 The server will start on the specified port (default is `http://localhost:59000`).
 
