@@ -30,7 +30,7 @@ h6:hover{
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    background: linear-gradient(135deg, #7594ff, #004fa0);
+    background-color: #dadadae8;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 .login-card-light-mode {

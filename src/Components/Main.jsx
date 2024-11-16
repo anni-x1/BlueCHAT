@@ -26,7 +26,8 @@ export default function Main() {
 
   const handleTabClick = (message) => {
     setPrompt({ usr_input: message });
-  };
+  }; 
+
   const handleReset = async () => {
     setMessages([]);
     try {
@@ -41,7 +42,7 @@ export default function Main() {
       console.error("Error resetting history:", error);
     }
   };
-  
+
   const handleClick = () => {
     if (prompt.usr_input !== "") {
       setMessages((prevMessages) => [
@@ -87,6 +88,17 @@ export default function Main() {
     }
   };
 
+  const getGreeting = () => {
+    const hours = new Date().getHours();
+    if (hours < 12) {
+      return "Good Morning";
+    } else if (hours < 18) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  };
+
   const components = {
     code({ node, inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || "");
@@ -116,16 +128,21 @@ export default function Main() {
 
   return (
     <>
-      <div ref={chatContainerRef} className="chat-container" >
+      <div ref={chatContainerRef} className="chat-container">
         <div className="spacer"></div>
         {messages.length === 0 && (
-          <div className="tab-container">
-            {exampleMessages.map((msg, index) => (
-              <div key={index} className={`tab-${mode} mx-1`} onClick={() => handleTabClick(msg)}>
-                {msg}
-              </div>
-            ))}
-          </div>
+          <>
+            <div className="greeting-container">
+              <h2>{getGreeting()}, {username}!</h2>
+            </div>
+            <div className="tab-container">
+              {exampleMessages.map((msg, index) => (
+                <div key={index} className={`tab-${mode} mx-1`} onClick={() => handleTabClick(msg)}>
+                  {msg}
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {messages.map((msg, index) => (
@@ -140,7 +157,7 @@ export default function Main() {
         ))}
 
         {loading && (
-          <div style={{ color: "black" }} >
+          <div style={{ color: "black" }}>
             <span>typing...</span>
             <div className="spinner-grow spinner-grow-sm" role="status">
               <span className="visually-hidden">Loading...</span>
@@ -187,10 +204,8 @@ export default function Main() {
           data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Reset chat history"
           onClick={handleReset}
           className={`send-button-${mode}`}
-          >
-          <span  class="material-symbols-outlined">
-            restart_alt
-          </span>
+        >
+          <span className="material-symbols-outlined">restart_alt</span>
         </button>
       </div>
     </>

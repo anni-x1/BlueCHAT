@@ -14,7 +14,7 @@ export default function Navbar() {
         setDropdownOpen(false);
     };
     const deleteUser = async ()=>{
-        alert("Are you sure you want to delete your account?");
+        window.confirm("Are you sure you want to delete your account?");
         try {
             await fetch('http://localhost:56000/api/user/deleteUser', {
               method: 'DELETE',
@@ -30,11 +30,17 @@ export default function Navbar() {
           setAuthenticated(false);
     }
     const handleLogout = () => {
+        localStorage.setItem('username', 'null');
+        localStorage.setItem('password', 'null');
         setAuthenticated(false);
         setDropdownOpen(false);
     };
 
+    // const profile = "a".charAt(0).toUpperCase();
     const profile = username.charAt(0).toUpperCase();
+    // const usr = localStorage.getItem("username");
+    // console.log(usr);
+    // const profile = localStorage.getItem('username');
 
 
     return (

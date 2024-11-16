@@ -25,10 +25,10 @@ export default function Login() {
       if (response.ok) {
         setAuthenticated(true);
         setUserName(data.username);
-        console.log(data.username);
         setMessages(data.history);
-        console.log(data.history);
         console.log('Login successful');
+        // localStorage.setItem('username', data.username);
+        // localStorage.setItem('password', data.password);
       } else {
         setError(data.message || 'Login failed');
       }

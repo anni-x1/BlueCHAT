@@ -1,5 +1,5 @@
 .dropdown-container {
-    background-color: #f0f0f0; 
+    background-color:#dadadae8; 
     color: #1a73e8;
     border-radius: 50%;
     width: 40px;
@@ -14,7 +14,8 @@
   }
 
 .navbar-light-mode {
-    background: linear-gradient(135deg, #506ac2, #000000);
+    /* background: linear-gradient(135deg, #506ac2, #000000); */
+    background:#f0f0f0;
     box-shadow: 0 2px 4px #0000001a;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }

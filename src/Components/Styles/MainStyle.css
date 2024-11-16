@@ -25,23 +25,27 @@
     outline: none;
     box-shadow: none;
 }
-.tab-container {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    
+
+.greeting-container {
+    position: absolute;
+    top: 20%; /* Adjust as needed to position in the top half */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: #6f6f6f; /* Text color */
+    text-align: center;
   }
 /* ___________________________________________________Light Mode_________________________________________________________________*/
 
 .App-light-mode {
-    background-color: #cae3fe;
+    background-color:#dadadae8;
     color: #333;
     height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #7594ff, #004fa0);
+    /* background: linear-gradient(135deg, #7594ff, #004fa0); */
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
@@ -61,7 +65,7 @@
 
 .usr_msg-light-mode,
 .ai_msg-light-mode {
-    background-color: #1877d0;
+    background-color: #f0f0f0;
     color: #000000;
     border-radius: 20px;
     margin-top: 5px;
@@ -69,7 +73,7 @@
     font-family: "Akaya Telivigala", system-ui;
     font-size:18px;
     font-weight: 500;
-    box-shadow: 5px 4px 6px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.1);
     height: fit-content;
     max-width: 95%;
     word-wrap: break-word;
@@ -89,12 +93,12 @@
     justify-content: space-around;
     margin-bottom: 20px;
     width: 60%;
-    margin: 0 auto; /* Center the tab container */
-    transition: margin 0.5s ease-in-out;
+    margin: 0 auto;
 }
+
 .tab-light-mode {
     padding: 10px 20px;
-    background-color: #44a4d1;
+    background-color: #b7b7b7;
     color: #333;
     border-radius: 5px;
     cursor: pointer;
@@ -109,7 +113,7 @@
 .chat-input-container-light-mode{
     display: flex;
     align-items: center;
-    background-color: #a6bffc;
+    background-color: #f0f0f0;
     border-radius: 20px;
     padding: 10px;
     box-shadow:  -2px -1px 20px 7px rgba(0, 0, 0, 0.1);
