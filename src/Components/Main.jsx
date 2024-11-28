@@ -13,11 +13,11 @@ export default function Main() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const chatContainerRef = useRef();
-
+  
   const exampleMessages = [
     "How do I get started with React?",
     "Write a python code to print Hello World!",
-    "What is the meaning of life?"
+    "What is the meaning of life?",
   ];
 
   const handlePromptChange = (event) => {
@@ -26,15 +26,15 @@ export default function Main() {
 
   const handleTabClick = (message) => {
     setPrompt({ usr_input: message });
-  }; 
+  };
 
   const handleReset = async () => {
     setMessages([]);
     try {
       await fetch('http://localhost:56000/api/user/resetHistory', {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username }),
       });
@@ -48,8 +48,8 @@ export default function Main() {
       setMessages((prevMessages) => [
         ...prevMessages,
         {
-          "type": "user",
-          "content": prompt.usr_input
+          type: "user",
+          content: prompt.usr_input,
         },
       ]);
 
@@ -58,13 +58,7 @@ export default function Main() {
       fetchData(username, prompt, (response) => {
         try {
           if (response) {
-            setMessages((prevMessages) => [
-              ...prevMessages,
-              {
-                "type": "ai",
-                "content": response
-              },
-            ]);
+            simulateTypingEffect(response);
           }
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -74,6 +68,35 @@ export default function Main() {
         }
       });
     }
+  };
+
+  // Simulate typing effect for AI-generated messages
+  const simulateTypingEffect = (fullMessage) => {
+    let currentIndex = 0;
+    const interval = 10;
+
+    const typingInterval = setInterval(() => {
+      currentIndex++;
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        const lastMessageIndex = updatedMessages.length - 1;
+
+        // Update the last AI message being typed
+        if (updatedMessages[lastMessageIndex]?.type === "ai") {
+          updatedMessages[lastMessageIndex].content = fullMessage.slice(0, currentIndex);
+        } else {
+          updatedMessages.push({
+            type: "ai",
+            content: fullMessage.slice(0, currentIndex),
+          });
+        }
+        return updatedMessages;
+      });
+
+      if (currentIndex === fullMessage.length) {
+        clearInterval(typingInterval); // Stop typing once the message is fully revealed
+      }
+    }, interval);
   };
 
   useEffect(() => {
@@ -120,10 +143,8 @@ export default function Main() {
   };
 
   if (!authenticated) {
-    if (registered)
-      return <Login />;
-    else
-      return <Signup />
+    if (registered) return <Login />;
+    else return <Signup />;
   }
 
   return (
@@ -133,11 +154,17 @@ export default function Main() {
         {messages.length === 0 && (
           <>
             <div className="greeting-container">
-              <h2>{getGreeting()}, {username}!</h2>
+              <h2>
+                {getGreeting()}, {username}!
+              </h2>
             </div>
             <div className="tab-container">
               {exampleMessages.map((msg, index) => (
-                <div key={index} className={`tab-${mode} mx-1`} onClick={() => handleTabClick(msg)}>
+                <div
+                  key={index}
+                  className={`tab-${mode} mx-1`}
+                  onClick={() => handleTabClick(msg)}
+                >
                   {msg}
                 </div>
               ))}
@@ -151,7 +178,7 @@ export default function Main() {
             className={`${msg.type === "user" ? `usr_msg-${mode}` : `ai_msg-${mode}`}`}
           >
             <ReactMarkdown components={components}>
-              {msg.type === "user" ? msg.content : msg.content}
+              {msg.content}
             </ReactMarkdown>
           </div>
         ))}
@@ -201,7 +228,9 @@ export default function Main() {
           </button>
         )}
         <button
-          data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Reset chat history"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          data-bs-title="Reset chat history"
           onClick={handleReset}
           className={`send-button-${mode}`}
         >
