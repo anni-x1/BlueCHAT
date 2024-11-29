@@ -3,7 +3,7 @@ import { AppContext } from './AppContext';
 
 const AppProvider = ({ children }) => {
   const [mode, setMode] = useState('light-mode');
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [username, setUserName] = useState('');
   const [registered, setRegistered] = useState(true);
   const [messages, setMessages] = useState([]);
