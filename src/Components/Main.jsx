@@ -31,7 +31,7 @@ export default function Main() {
   const handleReset = async () => {
     setMessages([]);
     try {
-      await fetch('http://localhost:56000/api/user/resetHistory', {
+      await fetch('https://bluechat-backend.onrender.com/api/user/resetHistory', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
